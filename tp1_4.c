@@ -19,7 +19,8 @@ void mostrarMasVeloz(struct compu pcs[], int cantidad);
 int main()
 {
     srand(time(NULL));
-    struct compu pcs[N];
+    int cantidad = 5;
+    struct compu *pcs = malloc(cantidad * sizeof(struct compu));
     char tipos[6][10] = {"Intel", "AMD", "Celeron", "Athlon", "Core", "Pentium"};
 
     //INICIALIZACION DEL ARREGLO PCS
@@ -31,5 +32,18 @@ int main()
         pcs[i].tipo_cpu = tipos[rand()%6]; //valores entre 0 y 5 del arreglo tipos
     }
 
+    free(pcs);
+
     return 0;
 }
+
+void listarPCs(struct compu pcs[], int cantidad){
+    printf("-----PCS Y SUS DATOS-----\n\n");
+
+    for(int i = 0; i < cantidad; i++){
+        printf("\nPC %d:\n", i + 1);
+        printf("\nVelocidad: %d\nAnio: %d\nCantidad de nucleos: %d\nTipo de CPU: %s", pcs[i].velocidad, pcs[i].anio, pcs[i].cantidad_nucleos, pcs[i].tipo_cpu);
+    }
+}
+
+
