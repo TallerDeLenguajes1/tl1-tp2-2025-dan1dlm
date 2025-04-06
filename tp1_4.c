@@ -32,6 +32,11 @@ int main()
         pcs[i].tipo_cpu = tipos[rand()%6]; //valores entre 0 y 5 del arreglo tipos
     }
 
+    //INVOCACION DE LAS FUNCIONES
+    listarPCs(pcs, cantidad);
+    mostrarMasVieja(pcs, cantidad);
+    mostrarMasVeloz(pcs, cantidad);
+
     free(pcs);
 
     return 0;
@@ -42,22 +47,43 @@ void listarPCs(struct compu pcs[], int cantidad){
 
     for(int i = 0; i < cantidad; i++){
         printf("\nPC %d:\n", i + 1);
-        printf("\nVelocidad: %d\nAnio: %d\nCantidad de nucleos: %d\nTipo de CPU: %s", pcs[i].velocidad, pcs[i].anio, pcs[i].cantidad_nucleos, pcs[i].tipo_cpu);
+        printf("\nVelocidad: %d GHz\nAnio: %d\nCantidad de nucleos: %d\nTipo de CPU: %s\n\n", pcs[i].velocidad, pcs[i].anio, pcs[i].cantidad_nucleos, pcs[i].tipo_cpu);
     }
 }
 
 void mostrarMasVieja(struct compu pcs[], int cantidad){
-    int masVieja=0;
-    char PC[10];
+    
+    struct compu pcVieja;
 
-    for(int i=0; i < cantidad; i++){
-        if(masVieja == 0 || masVieja < pcs[i].anio){
-            masVieja = pcs[i].anio;
-            PC[10] = pcs[i].tipo_cpu;
+    pcVieja = pcs[0]; //asumo que la primera PC es la mas vieja
+
+    for (int i = 1; i < cantidad; i++) {
+        if (pcs[i].anio < pcVieja.anio) {
+            pcVieja = pcs[i]; 
         }
     }
 
-    printf("\n\nLa PC mas vieja encontrada es: %s, salio en el anio %d", PC[10], masVieja);
-
+    printf("\n\n----- PC MAS VIEJA -----\n");
+    printf("Velocidad: %d GHz\n", pcVieja.velocidad);
+    printf("Anio: %d\n", pcVieja.anio);
+    printf("Cantidad de nucleos: %d\n", pcVieja.cantidad_nucleos);
+    printf("Tipo de CPU: %s\n", pcVieja.tipo_cpu);
 }
 
+void mostrarMasVeloz(struct compu pcs[], int cantidad){
+    struct compu pcVieja;
+
+    pcVieja = pcs[0]; //asumo que la primera PC es la mas veloz
+
+    for (int i = 1; i < cantidad; i++) {
+        if (pcs[i].velocidad > pcVieja.velocidad) {
+            pcVieja = pcs[i]; 
+        }
+    }
+
+    printf("\n\n----- PC MAS VELOZ -----\n");
+    printf("Velocidad: %d GHz\n", pcVieja.velocidad);
+    printf("Anio: %d\n", pcVieja.anio);
+    printf("Cantidad de nucleos: %d\n", pcVieja.cantidad_nucleos);
+    printf("Tipo de CPU: %s\n", pcVieja.tipo_cpu);
+}
