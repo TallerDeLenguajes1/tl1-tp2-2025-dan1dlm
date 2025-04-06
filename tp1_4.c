@@ -46,4 +46,18 @@ void listarPCs(struct compu pcs[], int cantidad){
     }
 }
 
+void mostrarMasVieja(struct compu pcs[], int cantidad){
+    int masVieja=0;
+    char PC[10];
+
+    for(int i=0; i < cantidad; i++){
+        if(masVieja == 0 || masVieja < pcs[i].anio){
+            masVieja = pcs[i].anio;
+            PC[10] = pcs[i].tipo_cpu;
+        }
+    }
+
+    printf("\n\nLa PC mas vieja encontrada es: %s, salio en el anio %d", PC[10], masVieja);
+
+}
 
